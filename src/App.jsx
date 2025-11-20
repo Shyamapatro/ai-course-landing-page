@@ -4,6 +4,7 @@ import Features from './components/Features';
 import Courses from './components/Courses';
 import Pricing from './components/Pricing';
 import Testimonials from './components/Testimonials';
+import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -32,6 +33,7 @@ function App() {
                 <Courses />
                 <Pricing />
                 <Testimonials />
+                <FAQ />
               </main>
               <Footer />
             </div>

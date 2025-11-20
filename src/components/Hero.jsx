@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import CountdownTimer from './CountdownTimer';
 
 const Hero = () => {
     return (
@@ -77,6 +78,9 @@ const Hero = () => {
                         Join thousands of developers and engineers mastering Generative AI, LLMs, and Neural Networks. Build the future, today.
                     </p>
 
+                    {/* Countdown Timer */}
+                    <CountdownTimer autoResetDays={7} />
+
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                         <motion.button
                             whileHover={{
@@ -101,6 +105,60 @@ const Hero = () => {
                         >
                             Explore Courses
                         </motion.button>
+                    </div>
+                </motion.div>
+
+                {/* Video Section - Clean & Elegant */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.9, duration: 0.7 }}
+                    className="mt-20 max-w-6xl mx-auto"
+                >
+                    {/* Section Header */}
+                    <div className="text-center mb-8">
+                        <motion.h3
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1, duration: 0.6 }}
+                            className="text-2xl md:text-3xl font-bold text-white mb-3"
+                        >
+                            See AI in Action
+                        </motion.h3>
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1.1, duration: 0.6 }}
+                            className="text-gray-400"
+                        >
+                            Watch how our students build cutting-edge AI applications
+                        </motion.p>
+                    </div>
+
+                    {/* Video Container */}
+                    <div className="relative group">
+                        {/* Main Video Wrapper */}
+                        <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-primary/10">
+                            {/* Video Element */}
+                            <div className="relative bg-gradient-to-br from-dark/50 to-dark/80 backdrop-blur-xl border border-white/10">
+                                <video
+                                    className="w-full aspect-video object-cover rounded-3xl"
+                                    poster="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1400&h=788&fit=crop&q=90"
+                                    controls
+                                    preload="metadata"
+                                >
+                                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+
+                            {/* Subtle Border Glow */}
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/30 via-purple-500/30 to-accent/30 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500 -z-10"></div>
+                        </div>
+
+                        {/* Corner Accents */}
+                        <div className="absolute -top-2 -left-2 w-20 h-20 bg-primary/20 rounded-full blur-2xl"></div>
+                        <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-accent/20 rounded-full blur-2xl"></div>
                     </div>
                 </motion.div>
 
