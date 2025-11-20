@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from './Logo';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const { currentUser, logout } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         let ticking = false;
@@ -23,6 +26,16 @@ const Navbar = () => {
     }, []);
 
     const toggleMenu = () => setIsOpen(!isOpen);
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate('/');
+            setIsOpen(false);
+        } catch (error) {
+            console.error('Failed to log out', error);
+        }
+    };
 
     const menuVariants = {
         hidden: { opacity: 0, height: 0 },
@@ -63,26 +76,44 @@ const Navbar = () => {
                             {/* Divider for visual separation */}
                             <div className="h-8 w-px bg-white/10"></div>
 
-                            <Link to="/login">
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                                    className="bg-white/10 hover:bg-white/20 text-white px-5 py-2 rounded-full text-sm font-medium border border-white/10 backdrop-blur-sm gpu-accelerated"
-                                >
-                                    Sign In
-                                </motion.button>
-                            </Link>
-                            <Link to="/signup">
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                                    className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-full text-sm font-medium shadow-lg shadow-primary/25 gpu-accelerated"
-                                >
-                                    Get Started
-                                </motion.button>
-                            </Link>
+                            {currentUser ? (
+                                <div className="flex items-center gap-4">
+                                    <span className="text-sm text-gray-300">
+                                        {currentUser.displayName || currentUser.email}
+                                    </span>
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={handleLogout}
+                                        className="bg-white/10 hover:bg-white/20 text-white px-5 py-2 rounded-full text-sm font-medium border border-white/10 backdrop-blur-sm gpu-accelerated"
+                                    >
+                                        Sign Out
+                                    </motion.button>
+                                </div>
+                            ) : (
+                                <>
+                                        <Link to="/login">
+                                            <motion.button
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                                className="bg-white/10 hover:bg-white/20 text-white px-5 py-2 rounded-full text-sm font-medium border border-white/10 backdrop-blur-sm gpu-accelerated"
+                                            >
+                                                Sign In
+                                            </motion.button>
+                                        </Link>
+                                        <Link to="/signup">
+                                            <motion.button
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                                className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-full text-sm font-medium shadow-lg shadow-primary/25 gpu-accelerated"
+                                            >
+                                                Get Started
+                                            </motion.button>
+                                        </Link>
+                                </>
+                            )}
 
                             {/* WhatsApp Community Button - Final CTA */}
                             <a
@@ -146,16 +177,32 @@ const Navbar = () => {
                             <a href="#courses" className="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium transition-colors">Courses</a>
                             <a href="#pricing" className="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium transition-colors">Pricing</a>
                             <div className="pt-4 flex flex-col space-y-3 px-3">
-                                <Link to="/login">
-                                    <button className="w-full text-center bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-md text-base font-medium transition-colors border border-white/10">
-                                        Sign In
-                                    </button>
-                                </Link>
-                                <Link to="/signup">
-                                    <button className="w-full text-center bg-primary hover:bg-primary/90 text-white px-3 py-2 rounded-md text-base font-medium transition-colors shadow-lg shadow-primary/25">
-                                        Get Started
-                                    </button>
-                                </Link>
+                                {currentUser ? (
+                                    <>
+                                        <div className="text-gray-300 px-3 py-2 text-sm">
+                                            Signed in as {currentUser.displayName || currentUser.email}
+                                        </div>
+                                        <button
+                                            onClick={handleLogout}
+                                            className="w-full text-center bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-md text-base font-medium transition-colors border border-white/10"
+                                        >
+                                            Sign Out
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                            <Link to="/login">
+                                                <button className="w-full text-center bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-md text-base font-medium transition-colors border border-white/10">
+                                                    Sign In
+                                                </button>
+                                            </Link>
+                                            <Link to="/signup">
+                                                <button className="w-full text-center bg-primary hover:bg-primary/90 text-white px-3 py-2 rounded-md text-base font-medium transition-colors shadow-lg shadow-primary/25">
+                                                    Get Started
+                                                </button>
+                                            </Link>
+                                    </>
+                                )}
                                 <a
                                     href="https://chat.whatsapp.com/your-invite-code"
                                     target="_blank" 

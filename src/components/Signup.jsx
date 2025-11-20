@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Signup = () => {
     const navigate = useNavigate();
+    const { signup, loginWithGoogle } = useAuth();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -35,15 +37,55 @@ const Signup = () => {
         return Object.keys(newErrors).length === 0;
     };
 
+    const getFirebaseErrorMessage = (errorCode) => {
+        switch (errorCode) {
+            case 'auth/email-already-in-use':
+                return 'An account with this email already exists';
+            case 'auth/invalid-email':
+                return 'Invalid email address';
+            case 'auth/weak-password':
+                return 'Password is too weak. Please use a stronger password';
+            case 'auth/operation-not-allowed':
+                return 'Email/password accounts are not enabled';
+            case 'auth/popup-closed-by-user':
+                return 'Sign-in popup was closed';
+            case 'auth/cancelled-popup-request':
+                return 'Sign-in cancelled';
+            default:
+                return `Error: ${errorCode}`;
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
             setIsLoading(true);
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            console.log('Signing up with:', formData);
+            try {
+                await signup(formData.email, formData.password, formData.name);
+                navigate('/');
+            } catch (error) {
+                console.error('Signup error:', error);
+                setErrors({
+                    general: getFirebaseErrorMessage(error.code)
+                });
+            } finally {
+                setIsLoading(false);
+            }
+        }
+    };
+
+    const handleGoogleSignIn = async () => {
+        setIsLoading(true);
+        try {
+            await loginWithGoogle();
+            navigate('/');
+        } catch (error) {
+            console.error('Google sign-in error:', error);
+            setErrors({
+                general: getFirebaseErrorMessage(error.code)
+            });
+        } finally {
             setIsLoading(false);
-            navigate('/login');
         }
     };
 
@@ -98,6 +140,11 @@ const Signup = () => {
                 <div className="text-center mb-8">
                     <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Create Account</h2>
                     <p className="text-sm md:text-base text-gray-300">Join us and start learning today</p>
+                    {errors.general && (
+                        <div className="mt-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg">
+                            <p className="text-sm text-red-400">{errors.general}</p>
+                        </div>
+                    )}
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4" noValidate>
@@ -188,6 +235,19 @@ const Signup = () => {
                 </form>
 
                 <div className="mt-8 pt-6 border-t border-white/10">
+                    <p className="text-center text-sm text-gray-400 mb-4">Or continue with</p>
+                    <button
+                        onClick={handleGoogleSignIn}
+                        disabled={isLoading}
+                        className="w-full p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 mb-6"
+                        aria-label="Sign up with Google"
+                    >
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z" />
+                        </svg>
+                        <span className="text-white font-medium">Continue with Google</span>
+                    </button>
+
                     <p className="text-center text-sm text-gray-400">
                         Already have an account? <Link to="/login" className="text-primary hover:text-purple-300 transition-colors focus:outline-none focus:underline">Sign in</Link>
                     </p>
