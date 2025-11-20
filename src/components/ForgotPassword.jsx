@@ -1,13 +1,28 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
+    const { resetPassword } = useAuth();
     const [email, setEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const getFirebaseErrorMessage = (errorCode) => {
+        switch (errorCode) {
+            case 'auth/user-not-found':
+                return 'No account found with this email';
+            case 'auth/invalid-email':
+                return 'Invalid email address';
+            case 'auth/too-many-requests':
+                return 'Too many requests. Please try again later';
+            default:
+                return 'An error occurred. Please try again';
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,11 +37,15 @@ const ForgotPassword = () => {
 
         setIsLoading(true);
         setError('');
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        console.log('Resetting password for:', email);
-        setIsLoading(false);
-        setIsSubmitted(true);
+        try {
+            await resetPassword(email);
+            setIsSubmitted(true);
+        } catch (error) {
+            console.error('Password reset error:', error);
+            setError(getFirebaseErrorMessage(error.code));
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
