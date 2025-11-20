@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -41,9 +42,7 @@ const Navbar = () => {
                 <div className="flex items-center justify-between h-20">
                     <div className="flex items-center">
                         <Link to="/" className="flex-shrink-0 group">
-                            <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent group-hover:opacity-80 transition-opacity">
-                                AI Masterclass
-                            </span>
+                            <Logo className="h-10 w-auto group-hover:opacity-80 transition-opacity" />
                         </Link>
                     </div>
                     <div className="hidden md:block">
@@ -88,7 +87,7 @@ const Navbar = () => {
                             {/* WhatsApp Community Button - Final CTA */}
                             <a
                                 href="https://chat.whatsapp.com/your-invite-code"
-                                target="_blank"
+                                target="_blank" 
                                 rel="noopener noreferrer"
                                 className="relative"
                             >
@@ -159,7 +158,7 @@ const Navbar = () => {
                                 </Link>
                                 <a
                                     href="https://chat.whatsapp.com/your-invite-code"
-                                    target="_blank"
+                                    target="_blank" 
                                     rel="noopener noreferrer"
                                     className="w-full"
                                 >

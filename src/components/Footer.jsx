@@ -1,4 +1,5 @@
 import React from 'react';
+import Logo from './Logo';
 
 const Footer = () => {
     return (
@@ -6,9 +7,7 @@ const Footer = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                     <div className="col-span-1 md:col-span-2">
-                        <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4 inline-block">
-                            AI Masterclass
-                        </span>
+                        <Logo className="h-10 w-auto mb-4" />
                         <p className="text-gray-400 max-w-sm">
                             Empowering the next generation of AI engineers with world-class training and expert mentorship.
                         </p>
@@ -37,7 +36,7 @@ const Footer = () => {
 
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
                     <p className="text-gray-500 text-sm">
-                        &copy; {new Date().getFullYear()} AI Masterclass. All rights reserved.
+                        &copy; {new Date().getFullYear()} VeerAI. All rights reserved.
                     </p>
                     <div className="flex space-x-6 mt-4 md:mt-0">
                         <a href="#" className="text-gray-400 hover:text-white transition-colors">
