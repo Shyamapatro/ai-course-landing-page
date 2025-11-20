@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ai-masterclass.com/sitemap.xml

@@ -10,7 +10,7 @@ const Footer = () => {
                             AI Masterclass
                         </span>
                         <p className="text-gray-400 max-w-sm">
-                            Empowering the next generation of AI engineers with cutting-edge curriculum and expert mentorship.
+                            Empowering the next generation of AI engineers with world-class training and expert mentorship.
                         </p>
                     </div>
 

@@ -7,10 +7,17 @@ const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
+        let ticking = false;
         const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    setScrolled(window.scrollY > 20);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -23,7 +30,13 @@ const Navbar = () => {
     };
 
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-dark/80 backdrop-blur-xl border-b border-white/10 shadow-lg' : 'bg-transparent border-transparent'}`}>
+        <nav
+            className={`fixed w-full z-50 gpu-accelerated ${scrolled ? 'bg-dark/80 backdrop-blur-xl border-b border-white/10 shadow-lg' : 'bg-transparent border-transparent'}`}
+            style={{
+                transition: 'background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                willChange: scrolled ? 'auto' : 'background-color, border-color'
+            }}
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     <div className="flex items-center">
@@ -39,8 +52,8 @@ const Navbar = () => {
                                 Features
                                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full"></span>
                             </a>
-                            <a href="#curriculum" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors relative group">
-                                Curriculum
+                            <a href="#courses" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors relative group">
+                                Courses
                                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full"></span>
                             </a>
                             <a href="#pricing" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors relative group">
@@ -51,7 +64,8 @@ const Navbar = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="bg-white/10 hover:bg-white/20 text-white px-6 py-2 rounded-full text-sm font-medium transition-all border border-white/10 backdrop-blur-sm"
+                                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                    className="bg-white/10 hover:bg-white/20 text-white px-6 py-2 rounded-full text-sm font-medium border border-white/10 backdrop-blur-sm gpu-accelerated"
                                 >
                                     Sign In
                                 </motion.button>
@@ -60,7 +74,8 @@ const Navbar = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-full text-sm font-medium transition-all shadow-lg shadow-primary/25"
+                                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                    className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg shadow-primary/25 gpu-accelerated"
                                 >
                                     Get Started
                                 </motion.button>
@@ -98,7 +113,7 @@ const Navbar = () => {
                     >
                         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                             <a href="#features" className="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium transition-colors">Features</a>
-                            <a href="#curriculum" className="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium transition-colors">Curriculum</a>
+                            <a href="#courses" className="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium transition-colors">Courses</a>
                             <a href="#pricing" className="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium transition-colors">Pricing</a>
                             <div className="pt-4 flex flex-col space-y-3 px-3">
                                 <Link to="/login">

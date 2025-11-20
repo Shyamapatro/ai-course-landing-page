@@ -12,8 +12,14 @@ const Hero = () => {
                         rotate: [0, 90, 0],
                         opacity: [0.3, 0.5, 0.3]
                     }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px]"
+                    transition={{
+                        duration: 20,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        repeatType: "reverse"
+                    }}
+                    style={{ willChange: 'transform, opacity' }}
+                    className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] gpu-accelerated"
                 />
                 <motion.div
                     animate={{
@@ -21,8 +27,14 @@ const Hero = () => {
                         rotate: [0, -60, 0],
                         opacity: [0.2, 0.4, 0.2]
                     }}
-                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                    className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-accent/20 rounded-full blur-[120px]"
+                    transition={{
+                        duration: 25,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        repeatType: "reverse"
+                    }}
+                    style={{ willChange: 'transform, opacity' }}
+                    className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-accent/20 rounded-full blur-[120px] gpu-accelerated"
                 />
                 <motion.div
                     animate={{
@@ -30,8 +42,14 @@ const Hero = () => {
                         x: [0, 50, 0],
                         opacity: [0.1, 0.3, 0.1]
                     }}
-                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-purple-500/10 rounded-full blur-[150px]"
+                    transition={{
+                        duration: 15,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        repeatType: "reverse"
+                    }}
+                    style={{ willChange: 'transform, opacity' }}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-purple-500/10 rounded-full blur-[150px] gpu-accelerated"
                 />
             </div>
 
@@ -61,18 +79,27 @@ const Hero = () => {
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                         <motion.button
-                            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(139, 92, 246, 0.6)" }}
+                            whileHover={{
+                                scale: 1.05,
+                                boxShadow: "0 0 30px rgba(139, 92, 246, 0.6)"
+                            }}
                             whileTap={{ scale: 0.95 }}
-                            className="shine-effect w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-purple-600 text-white rounded-full font-bold text-lg shadow-xl shadow-primary/25 transition-all"
+                            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                            className="shine-effect w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-purple-600 text-white rounded-full font-bold text-lg shadow-xl shadow-primary/25 gpu-accelerated"
                         >
                             Start Learning Now
                         </motion.button>
                         <motion.button
-                            whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+                            whileHover={{
+                                scale: 1.05,
+                                backgroundColor: "rgba(255, 255, 255, 0.1)"
+                            }}
                             whileTap={{ scale: 0.95 }}
-                            className="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 text-white rounded-full font-bold text-lg backdrop-blur-sm transition-all hover:border-white/30"
+                            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                            onClick={() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 text-white rounded-full font-bold text-lg backdrop-blur-sm hover:border-white/30 gpu-accelerated"
                         >
-                            View Curriculum
+                            Explore Courses
                         </motion.button>
                     </div>
                 </motion.div>

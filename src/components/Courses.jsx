@@ -93,16 +93,30 @@ const Courses = () => {
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            transition={{
+                                duration: 0.5,
+                                delay: index * 0.1,
+                                ease: [0.4, 0, 0.2, 1]
+                            }}
                             whileHover={{ y: -10 }}
-                            className="glass rounded-3xl overflow-hidden group hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 border border-white/5"
+                            className="glass rounded-3xl overflow-hidden group hover:shadow-2xl hover:shadow-primary/10 border border-white/5 gpu-accelerated"
+                            style={{ transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
                         >
                             <div className="relative h-48 overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-t from-dark to-transparent z-10" />
                                 <img
                                     src={course.image}
-                                    alt={course.title}
-                                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                    alt={`${course.title} - ${course.level} AI course | Learn ${course.description.split('.')[0]}`}
+                                    loading="lazy"
+                                    width="400"
+                                    height="192"
+                                    className="w-full h-full object-cover gpu-accelerated"
+                                    style={{
+                                        transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                                        willChange: 'transform'
+                                    }}
+                                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                                 />
                                 <div className="absolute top-4 right-4 z-20">
                                     <span className="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-xs font-medium text-white border border-white/10">
@@ -112,7 +126,7 @@ const Courses = () => {
                             </div>
 
                             <div className="p-8">
-                                <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-primary transition-colors">
+                                <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-primary" style={{ transition: 'color 0.3s ease' }}>
                                     {course.title}
                                 </h3>
                                 <p className="text-gray-400 text-sm mb-6 line-clamp-2">
@@ -136,7 +150,8 @@ const Courses = () => {
 
                                 <button
                                     onClick={() => navigate('/login')}
-                                    className="w-full py-3 rounded-xl bg-white/5 hover:bg-primary hover:text-white border border-white/10 hover:border-primary transition-all duration-300 font-semibold text-sm"
+                                    className="w-full py-3 rounded-xl bg-white/5 hover:bg-primary hover:text-white border border-white/10 hover:border-primary font-semibold text-sm gpu-accelerated"
+                                    style={{ transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
                                 >
                                     View Details
                                 </button>

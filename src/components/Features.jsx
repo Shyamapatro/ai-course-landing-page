@@ -61,7 +61,7 @@ const Features = () => {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="text-xl text-gray-400 max-w-2xl mx-auto"
                     >
-                        Comprehensive curriculum designed to take you from beginner to expert in Artificial Intelligence.
+                        Comprehensive training designed to take you from beginner to expert in Artificial Intelligence.
                     </motion.p>
                 </div>
 
@@ -72,14 +72,20 @@ const Features = () => {
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            transition={{
+                                duration: 0.5,
+                                delay: index * 0.1,
+                                ease: [0.4, 0, 0.2, 1]
+                            }}
                             whileHover={{ y: -10 }}
-                            className="glass p-8 rounded-3xl hover:bg-white/10 transition-all duration-300 group border border-white/5 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10"
+                            className="glass p-8 rounded-3xl hover:bg-white/10 group border border-white/5 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 gpu-accelerated"
+                            style={{ transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
                         >
-                            <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-4xl mb-6 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
+                            <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-4xl mb-6 gpu-accelerated"
+                                style={{ transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease' }}>
                                 {feature.icon}
                             </div>
-                            <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-primary transition-colors">
+                            <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-primary" style={{ transition: 'color 0.3s ease' }}>
                                 {feature.title}
                             </h3>
                             <p className="text-gray-400 leading-relaxed text-lg">

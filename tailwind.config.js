@@ -13,7 +13,15 @@ export default {
                 dark: '#0f172a', // Slate 900
             },
             fontFamily: {
-                sans: ['Inter', 'sans-serif'],
+                sans: [
+                    'Outfit',
+                    'Outfit Fallback',
+                    'Plus Jakarta Sans',
+                    'Plus Jakarta Sans Fallback',
+                    'system-ui',
+                    '-apple-system',
+                    'sans-serif'
+                ],
             },
         },
     },
