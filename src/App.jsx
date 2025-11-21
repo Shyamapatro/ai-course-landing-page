@@ -1,14 +1,15 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Features from './components/Features';
-import Courses from './components/Courses';
-import Pricing from './components/Pricing';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
-import Footer from './components/Footer';
+import { lazy, Suspense } from 'react';
+
+const Features = lazy(() => import('./components/Features'));
+const Courses = lazy(() => import('./components/Courses'));
+const Pricing = lazy(() => import('./components/Pricing'));
+const Testimonials = lazy(() => import('./components/Testimonials'));
+const FAQ = lazy(() => import('./components/FAQ'));
+const Footer = lazy(() => import('./components/Footer'));
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
 import { AuthProvider } from './context/AuthContext';
 
 const Login = lazy(() => import('./components/Login'));
@@ -31,13 +32,17 @@ function App() {
                 <Navbar />
                 <main>
                   <Hero />
-                  <Features />
-                  <Courses />
-                  <Pricing />
-                  <Testimonials />
-                  <FAQ />
+                  <Suspense fallback={<div className="py-20 text-center text-gray-500">Loading sections...</div>}>
+                    <Features />
+                    <Courses />
+                    <Pricing />
+                    <Testimonials />
+                    <FAQ />
+                  </Suspense>
                 </main>
-                <Footer />
+                <Suspense fallback={null}>
+                  <Footer />
+                </Suspense>
               </div>
             } />
             <Route path="/login" element={<Login />} />
