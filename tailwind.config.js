@@ -7,7 +7,7 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: '#6366f1', // Indigo 500
+                primary: '#4f46e5', // Indigo 600
                 secondary: '#64748b', // Slate 500
                 accent: '#06b6d4', // Cyan 500
                 dark: '#0f172a', // Slate 900

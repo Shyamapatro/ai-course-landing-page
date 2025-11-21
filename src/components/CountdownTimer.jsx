@@ -75,14 +75,14 @@ const CountdownTimer = ({ targetDate, autoResetDays = 7 }) => {
             className="my-12"
         >
             <div className="text-center mb-6">
-                <motion.h3
+                <motion.h2
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}
                     className="text-2xl md:text-3xl font-bold text-white mb-2"
                 >
                     ⏰ Next Batch Starts In
-                </motion.h3>
+                </motion.h2>
                 <p className="text-gray-400 text-sm md:text-base">
                     Limited seats available - Enroll now!
                 </p>

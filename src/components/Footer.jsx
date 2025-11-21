@@ -14,7 +14,7 @@ const Footer = () => {
                     </div>
 
                     <div>
-                        <h4 className="text-white font-bold mb-4">Platform</h4>
+                        <h3 className="text-white font-bold mb-4">Platform</h3>
                         <ul className="space-y-2">
                             <li><a href="#" className="text-gray-400 hover:text-primary transition-colors">Courses</a></li>
                             <li><a href="#" className="text-gray-400 hover:text-primary transition-colors">Mentorship</a></li>
@@ -24,7 +24,7 @@ const Footer = () => {
                     </div>
 
                     <div>
-                        <h4 className="text-white font-bold mb-4">Company</h4>
+                        <h3 className="text-white font-bold mb-4">Company</h3>
                         <ul className="space-y-2">
                             <li><a href="#" className="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
                             <li><a href="#" className="text-gray-400 hover:text-primary transition-colors">Careers</a></li>
@@ -35,7 +35,7 @@ const Footer = () => {
                 </div>
 
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
-                    <p className="text-gray-500 text-sm">
+                    <p className="text-gray-400 text-sm">
                         &copy; {new Date().getFullYear()} VeerAI. All rights reserved.
                     </p>
                     <div className="flex space-x-6 mt-4 md:mt-0">
